@@ -35,7 +35,7 @@ const Key = styled.div`
   border-radius: 10px;
 `;
 
-const rows = ['quertyuiop','asdfghjkl','+zxcvbnm-'];
+const rows = ['qwuertyuiop','asdfghjkl','+zxcvbnm-'];
 
 function Keyboard({ onKeyPress }: { onKeyPress: (key: string) => void}) {
   return (

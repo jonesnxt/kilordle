@@ -21,7 +21,7 @@ const Content = styled.div`
 
 function App() {
   const [wordlist, setWordlist] = useState(generateWordlist());
-  const [guesslist, setGuesslist] = useState(['']);
+  const [guesslist, setGuesslist] = useState<string[]>([]);
   const [working, setWorking] = useState('');
 
   useEffect(() => {
