@@ -36,12 +36,14 @@ function App() {
           <Puzzles wordlist={wordlist} working={working} guesslist={guesslist} />
           <Keyboard onKeyPress={(key) => {
             if(key === '-') setWorking((tmp) => tmp.slice(0, tmp.length-1));
-            else if(key === '+' && working.length === 5 && checkValidity(working)) {
-              // lets go.
-              const newGuesslist = guesslist.concat([working]);
-              setGuesslist(newGuesslist);
-              setWorking('');
-              setWordlist(sortByValue(wordlist, newGuesslist));
+            else if(key === '+') {
+              if(working.length === 5 && checkValidity(working)) {
+                // lets go.
+                const newGuesslist = guesslist.concat([working]);
+                setGuesslist(newGuesslist);
+                setWorking('');
+                setWordlist(sortByValue(wordlist, newGuesslist));
+              }
             } else if(working.length !== 5) {
               setWorking((tmp) => tmp + key);
             }
