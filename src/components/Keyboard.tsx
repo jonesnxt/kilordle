@@ -21,11 +21,11 @@ const Content = styled.div`
 const Row = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
 `;
 
-const Key = styled.div`
-  width: 40px;
+const Key = styled.div<{letter: string}>`
+  width: ${({ letter }) => (letter === '+') ? '55px' : '40px'};
   height: 40px;
   font-size: 24px;
   display: flex;
@@ -33,6 +33,8 @@ const Key = styled.div`
   align-items: center;
   border: 1px solid rgba(0,0,0,0.3);
   border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
 `;
 
 const rows = ['qwertyuiop','asdfghjkl','+zxcvbnm-'];
@@ -44,7 +46,7 @@ function Keyboard({ onKeyPress }: { onKeyPress: (key: string) => void}) {
         {rows.map((row) => (
           <Row key={row}>
             {row.split('').map((letter) => (
-              <Key key={letter} onClick={() => onKeyPress(letter)}>{letter === '+' ? 'GO' : letter === '-' ? '<-' : letter}</Key>
+              <Key key={letter} letter={letter} onClick={() => onKeyPress(letter)}>{letter === '+' ? 'GO' : letter === '-' ? '⌫' : letter}</Key>
             ))}
 
           </Row>
