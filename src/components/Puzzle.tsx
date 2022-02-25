@@ -57,7 +57,7 @@ function Puzzle({
         {working.split('').map((letter, i) => (
           <Letter red={working.length === 5 && !checkValidity(working)} key={`${letter}${i}W`}>{letter}</Letter>
         ))}
-        {working.length !== 5 && Array.from(Array(5 - working.length)).map((e) => <Letter> </Letter>)}
+        {working.length !== 5 && Array.from(Array(5 - working.length)).map((e, i) => <Letter key={`empty-${i}`}> </Letter>)}
       </Row>
   </Container>
   );

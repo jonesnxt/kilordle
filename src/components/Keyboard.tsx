@@ -33,9 +33,13 @@ const Key = styled.div`
   align-items: center;
   border: 1px solid rgba(0,0,0,0.3);
   border-radius: 10px;
+  cursor: pointer;
+  :hover {
+    background-color: #EEE;
+  }
 `;
 
-const rows = ['qwuertyuiop','asdfghjkl','+zxcvbnm-'];
+const rows = ['qwertyuiop','asdfghjkl','+zxcvbnm-'];
 
 function Keyboard({ onKeyPress }: { onKeyPress: (key: string) => void}) {
   return (

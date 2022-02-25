@@ -24,28 +24,35 @@ function App() {
   const [guesslist, setGuesslist] = useState<string[]>([]);
   const [working, setWorking] = useState('');
 
+  function addKey(key: string) {
+    if(key === '-' || key === 'Backspace') setWorking((tmp) => tmp.slice(0, tmp.length-1));
+    else if((key === '+' || key === 'Enter') && working.length === 5 && checkValidity(working)) {
+      // lets go.
+      const newGuesslist = guesslist.concat([working]);
+      setGuesslist(newGuesslist);
+      setWorking('');
+      setWordlist(sortByValue(wordlist, newGuesslist));
+    } else if(working.length !== 5) {
+      setWorking((tmp) => tmp + key.toLowerCase());
+    }
+  }
+
   useEffect(() => {
     setWordlist(sortByValue(wordlist, guesslist));
-
   }, []);
+
+  useEffect(() => {
+    function keyEvent(ev: KeyboardEvent) { addKey(ev.key); }
+    window.addEventListener('keydown', keyEvent);
+    return () => window.removeEventListener('keydown', keyEvent);
+  }, [working]);
   return (
     <div className="App">
       <Container>
         <Content>
           <Header remaining={wordlist.length} guesses={guesslist.length} />
           <Puzzles wordlist={wordlist} working={working} guesslist={guesslist} />
-          <Keyboard onKeyPress={(key) => {
-            if(key === '-') setWorking((tmp) => tmp.slice(0, tmp.length-1));
-            else if(key === '+' && working.length === 5 && checkValidity(working)) {
-              // lets go.
-              const newGuesslist = guesslist.concat([working]);
-              setGuesslist(newGuesslist);
-              setWorking('');
-              setWordlist(sortByValue(wordlist, newGuesslist));
-            } else if(working.length !== 5) {
-              setWorking((tmp) => tmp + key);
-            }
-          }}/>
+          <Keyboard onKeyPress={(key) => addKey(key)}/>
         </Content>
       </Container>
     </div>
