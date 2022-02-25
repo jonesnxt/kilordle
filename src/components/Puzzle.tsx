@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { checkValidity } from '../util/checkValidity';
+import { isYellow } from '../util/isYellow';
 
 const Container = styled.div`
   display: flex;
@@ -49,7 +50,7 @@ function Puzzle({
     {guesslist.map((guess, gnum) => (
       <Row key={guess}>
         {guess.split('').map((letter, i) => (
-          <Letter key={`${letter}${i},${gnum}`} green={letter === wordle[i]} yellow={wordle.includes(letter)}>{letter}</Letter>
+          <Letter key={`${letter}${i},${gnum}`} green={letter === wordle[i]} yellow={isYellow(wordle, guess, i)}>{letter}</Letter>
         ))}
       </Row>
     ))}
