@@ -32,7 +32,7 @@ function App() {
       setGuesslist(newGuesslist);
       setWorking('');
       setWordlist(sortByValue(wordlist, newGuesslist));
-    } else if(working.length !== 5) {
+    } else if(working.length !== 5 && key.length === 1) {
       setWorking((tmp) => tmp + key.toLowerCase());
     }
   }
