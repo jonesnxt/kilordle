@@ -44,6 +44,7 @@ function App() {
   useEffect(() => {
     function keyEvent(ev: KeyboardEvent) { addKey(ev.key); }
     window.addEventListener('keydown', keyEvent);
+    if(working.length > 5) setWorking((tmp) => tmp.slice(0,5));
     return () => window.removeEventListener('keydown', keyEvent);
   }, [working]);
   return (
