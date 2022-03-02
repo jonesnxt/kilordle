@@ -24,6 +24,9 @@ function App() {
   const [guesslist, setGuesslist] = useState<string[]>([]);
   const [working, setWorking] = useState('');
 
+  const maxGuesses = 1005;
+  const expired = guesslist.length >= maxGuesses;
+
   function addKey(key: string) {
     if(key === '-' || key === 'Backspace') setWorking((tmp) => tmp.slice(0, tmp.length-1));
     else if((key === '+' || key === 'Enter') && working.length === 5 && checkValidity(working)) {
@@ -43,17 +46,20 @@ function App() {
 
   useEffect(() => {
     function keyEvent(ev: KeyboardEvent) { addKey(ev.key); }
-    window.addEventListener('keydown', keyEvent);
-    if(working.length > 5) setWorking((tmp) => tmp.slice(0,5));
-    return () => window.removeEventListener('keydown', keyEvent);
+    if(!expired) {
+      window.addEventListener('keydown', keyEvent);
+      if(working.length > 5) setWorking((tmp) => tmp.slice(0,5));
+      return () => window.removeEventListener('keydown', keyEvent);
+    }
   }, [working]);
+
   return (
     <div className="App">
       <Container>
         <Content>
-          <Header remaining={wordlist.length} guesses={guesslist.length} />
-          <Puzzles wordlist={wordlist} working={working} guesslist={guesslist} />
-          <Keyboard onKeyPress={(key) => addKey(key)}/>
+          <Header remaining={wordlist.length} guesses={guesslist.length} limit={maxGuesses} />
+          <Puzzles expired={expired} wordlist={wordlist} working={working} guesslist={guesslist} />
+          <Keyboard expired={expired} onKeyPress={(key) => addKey(key)}/>
         </Content>
       </Container>
     </div>

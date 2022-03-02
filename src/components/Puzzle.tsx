@@ -37,10 +37,12 @@ const Letter = styled.div<{ green?: boolean, yellow?: boolean, red?: boolean }>`
 `;
 
 function Puzzle({
+  expired,
   wordle,
   working,
   guesslist,
 }: {
+  expired: boolean,
   wordle: string;
   working: string;
   guesslist: string[];
@@ -54,12 +56,14 @@ function Puzzle({
         ))}
       </Row>
     ))}
+    {!expired && 
       <Row>
         {working.split('').map((letter, i) => (
           <Letter red={working.length === 5 && !checkValidity(working)} key={`${letter}${i}W`}>{letter}</Letter>
         ))}
         {working.length <= 5 && Array.from(Array(5 - working.length)).map((e, i) => <Letter key={`empty-${i}`}> </Letter>)}
       </Row>
+    }
   </Container>
   );
 }
