@@ -16,11 +16,11 @@ const Stats = styled.div`
   font-size: 14px;
 `;
 
-function Header({ remaining, guesses }: { remaining: number, guesses: number }) {
+function Header({ remaining, guesses, limit }: { remaining: number, guesses: number, limit: number }) {
   return (
     <Container>
       <Title>Kilordle by <a href="https://github.com/jonesnxt/kilordle" target="_blank">jones</a></Title>
-      <Stats>Guesses: {guesses} | Remaining: {remaining}/1000</Stats>
+      <Stats>Guesses: {guesses}/{limit} | Remaining: {remaining}/1000</Stats>
     </Container>
   );
 }

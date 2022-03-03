@@ -42,21 +42,31 @@ const Key = styled.div<{letter: string}>`
 
 const rows = ['qwertyuiop','asdfghjkl','+zxcvbnm-'];
 
-function Keyboard({ onKeyPress }: { onKeyPress: (key: string) => void}) {
-  return (
-    <Container>
-      <Content>
-        {rows.map((row) => (
-          <Row key={row}>
-            {row.split('').map((letter) => (
-              <Key key={letter} letter={letter} onClick={() => onKeyPress(letter)}>{letter === '+' ? 'GO' : letter === '-' ? '⌫' : letter}</Key>
-            ))}
+function Keyboard({ expired, onKeyPress }: { expired: boolean, onKeyPress: (key: string) => void }) {
+  if(expired) {
+      return (
+        <Container>
+          <Content>
+            No more guesses. Why have you done this to yourself?
+          </Content>
+        </Container>
+      );
+  } else {
+      return (
+        <Container>
+          <Content>
+            {rows.map((row) => (
+              <Row key={row}>
+                {row.split('').map((letter) => (
+                  <Key key={letter} letter={letter} onClick={() => onKeyPress(letter)}>{letter === '+' ? 'GO' : letter === '-' ? '⌫' : letter}</Key>
+                ))}
 
-          </Row>
-        ))}
-      </Content>
-    </Container>
-  );
+              </Row>
+            ))}
+          </Content>
+        </Container>
+      );
+  }
 }
 
 export default Keyboard;
