@@ -24,7 +24,7 @@ const Row = styled.div`
   justify-content: center;
 `;
 
-const Key = styled.div<{letter: string}>`
+const Key = styled.div<{letter: string, used: boolean}>`
   width: ${({ letter }) => (letter === '+') ? '55px' : '40px'};
   height: 40px;
   font-size: 24px;
@@ -38,11 +38,16 @@ const Key = styled.div<{letter: string}>`
   :hover {
     background-color: #EEE;
   }
+
+  
+  ${({ used }) => used && `
+    background-color: #EEE;  
+  `}
 `;
 
 const rows = ['qwertyuiop','asdfghjkl','+zxcvbnm-'];
 
-function Keyboard({ expired, onKeyPress }: { expired: boolean, onKeyPress: (key: string) => void }) {
+function Keyboard({ expired, usedLetters, onKeyPress }: { expired: boolean, usedLetters: string[], onKeyPress: (key: string) => void }) {
   if(expired) {
       return (
         <Container>
@@ -58,7 +63,7 @@ function Keyboard({ expired, onKeyPress }: { expired: boolean, onKeyPress: (key:
             {rows.map((row) => (
               <Row key={row}>
                 {row.split('').map((letter) => (
-                  <Key key={letter} letter={letter} onClick={() => onKeyPress(letter)}>{letter === '+' ? 'GO' : letter === '-' ? '⌫' : letter}</Key>
+                  <Key used={usedLetters.indexOf(letter)!==-1} key={letter} letter={letter} onClick={() => onKeyPress(letter)}>{letter === '+' ? 'GO' : letter === '-' ? '⌫' : letter}</Key>
                 ))}
 
               </Row>

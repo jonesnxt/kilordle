@@ -53,13 +53,25 @@ function App() {
     }
   }, [working]);
 
+  function getUsedLetters() {
+    var letters: string[] = [];
+    guesslist.forEach(word => {
+      for(var i=0; i<word.length; i++) {
+        var char = word.charAt(i);
+        if(letters.indexOf(char) === -1)
+          letters.push(char);
+      }
+    });
+    return letters;
+  }
+
   return (
     <div className="App">
       <Container>
         <Content>
           <Header remaining={wordlist.length} guesses={guesslist.length} limit={maxGuesses} />
           <Puzzles expired={expired} wordlist={wordlist} working={working} guesslist={guesslist} />
-          <Keyboard expired={expired} onKeyPress={(key) => addKey(key)}/>
+          <Keyboard expired={expired} onKeyPress={(key) => addKey(key)} usedLetters={getUsedLetters()}/>
         </Content>
       </Container>
     </div>
