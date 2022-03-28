@@ -18,14 +18,15 @@ function EndScreen({progressHistory}: {progressHistory: number[]}){
     const canvasResult = useRef<Blob|null>(null);
 
     const displayWidth = 525;
-    const displayHeight = 250+20;
+    const titleHeight = 20;
+    const displayHeight = 250+titleHeight;
     const maxColumns = 50;
     const actualColumns = Math.min(maxColumns, guesses);
     const rows = 25;
 
     const mmts = {  // measurements
         height: displayHeight,
-        nonTitleHeight: displayHeight-20,
+        nonTitleHeight: displayHeight-titleHeight,
         width: displayWidth,
         leftGutter: 30,
         bottomGutter: 15,
