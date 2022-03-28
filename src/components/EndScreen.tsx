@@ -136,7 +136,7 @@ function EndScreen({progressHistory}: {progressHistory: number[]}){
     return (<>
             <img
                 src={canvasURL}
-                style={{width: displayWidth, height: displayHeight}} 
+                style={{width: displayWidth, maxWidth: "95%", height: "auto"}} 
             />
             <ShareButton onClick={shareResults}>{buttonText}</ShareButton>
         </>
