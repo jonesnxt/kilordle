@@ -15,12 +15,13 @@ const More = styled.div`
 `;
 
 function Puzzles({expired, wordlist, working, guesslist}: {expired: boolean, wordlist: string[]; working: string; guesslist: string[]}) {
+  const notShown = Math.max(0, wordlist.length - 32);
   return (
     <Container>
       {wordlist.slice(0, Math.min(wordlist.length, 32)).map((word) => (
         <Puzzle expired={expired} key={word} wordle={word} working={working} guesslist={guesslist} />
       ))}
-      <More>+ {Math.max(0, wordlist.length - 32)} more</More>
+      {wordlist.length > 0 ? <More>+ {notShown} more</More> : null }
     </Container>
   );
 }
