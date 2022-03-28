@@ -79,6 +79,7 @@ function App() {
   //     }
   //     setProgressHistory(fakeProgressHistory);
   //     setWordlist([]);
+  //     setGuesslist(Array(fakeProgressHistory.length).fill("placeholder"));
   //   }
   // }, []);
 
