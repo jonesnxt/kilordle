@@ -22,6 +22,7 @@ const Content = styled.div`
 function App() {
   const [wordlist, setWordlist] = useState(generateWordlist());
   const [guesslist, setGuesslist] = useState<string[]>([]);
+  const [progressHistory, setProgressHistory] = useState<number[]>([]);
   const [working, setWorking] = useState('');
 
   const maxGuesses = 1005;
@@ -35,6 +36,7 @@ function App() {
       setGuesslist(newGuesslist);
       setWorking('');
       setWordlist(sortByValue(wordlist, newGuesslist));
+      setProgressHistory(progressHistory.concat([TOTAL_WORDS-(wordlist.length-1)]));
     } else if(working.length !== 5 && key.length === 1) {
       setWorking((tmp) => tmp + key.toLowerCase());
     }
