@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import './App.css';
-import { Header, Keyboard, Puzzles } from './components';
+import { Header, Keyboard, Puzzles, EndScreen } from './components';
 import { checkValidity } from './util/checkValidity';
 import { generateWordlist } from './util/generateWordlist';
 import { sortByValue } from './util/sortByValue';
@@ -73,6 +73,7 @@ function App() {
         <Content>
           <Header remaining={wordlist.length} guesses={guesslist.length} limit={maxGuesses} />
           <Puzzles expired={expired} wordlist={wordlist} working={working} guesslist={guesslist} />
+          {wordlist.length === 0 ? <EndScreen progressHistory={progressHistory} /> : null}
           <Keyboard expired={expired} onKeyPress={(key) => addKey(key)} usedLetters={getUsedLetters()}/>
         </Content>
       </Container>
