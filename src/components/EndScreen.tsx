@@ -114,6 +114,7 @@ function EndScreen({progressHistory}: {progressHistory: number[]}){
             }
         });
     }, [progressHistory]);
+    const [buttonText, setButtonText] = useState("Share Results");
     const shareResults = () => {
         if (canvasResult.current){
             try {
@@ -121,7 +122,9 @@ function EndScreen({progressHistory}: {progressHistory: number[]}){
                     new ClipboardItem({
                         [canvasResult.current.type]: canvasResult.current
                     })
-                ]);
+                ]).then(() => {
+                    setButtonText("Copied to clipboard");
+                });
             } catch {
                 const dl = document.createElement("a");
                 dl.download = "kilordle.png";
@@ -135,7 +138,7 @@ function EndScreen({progressHistory}: {progressHistory: number[]}){
                 src={canvasURL}
                 style={{width: displayWidth, height: displayHeight}} 
             />
-            <ShareButton onClick={shareResults}>Share Results</ShareButton>
+            <ShareButton onClick={shareResults}>{buttonText}</ShareButton>
         </>
     )
 }
