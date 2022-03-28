@@ -95,9 +95,11 @@ function EndScreen({progressHistory}: {progressHistory: number[]}){
         // draw grid of squares
         context.fillStyle = "#0fb30f";
         const drawnSquareSide = mmts.squareSide - mmts.squarePadding*2;
+        const finalHeight = progressHistory[progressHistory.length-1];
         for (let x=0; x<actualColumns; x++){
-            const wordsGotten = progressHistory[Math.floor(guesses*(x/actualColumns))]
-            for (let y=rows; y>rows-wordsGotten; y--){
+            const wordsGotten = progressHistory[Math.floor(guesses*(x/actualColumns))];
+            const columnSquares = Math.round(wordsGotten*(rows/finalHeight));
+            for (let y=rows; y>rows-columnSquares; y--){
                 const xPos = mmts.gridLeftEdge + x*mmts.squareSide+mmts.squarePadding;
                 const yPos = (y-1)*mmts.squareSide+mmts.squarePadding;
                 context.fillRect(xPos, yPos, drawnSquareSide, drawnSquareSide);
