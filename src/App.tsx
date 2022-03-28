@@ -20,7 +20,9 @@ const Content = styled.div`
 `;
 
 function App() {
-  const [wordlist, setWordlist] = useState(generateWordlist());
+  const totalWords = 1000;
+  const [wordlist, setWordlist] = useState(generateWordlist(totalWords));
+  console.log("Wordlist:", wordlist);
   const [guesslist, setGuesslist] = useState<string[]>([]);
   const [progressHistory, setProgressHistory] = useState<number[]>([]);
   const [working, setWorking] = useState('');
@@ -36,7 +38,7 @@ function App() {
       setGuesslist(newGuesslist);
       setWorking('');
       setWordlist(sortByValue(wordlist, newGuesslist));
-      setProgressHistory(progressHistory.concat([TOTAL_WORDS-(wordlist.length-1)]));
+      setProgressHistory(progressHistory.concat([totalWords-(wordlist.length-1)]));
     } else if(working.length !== 5 && key.length === 1) {
       setWorking((tmp) => tmp + key.toLowerCase());
     }
@@ -65,6 +67,20 @@ function App() {
       }
     });
     return letters;
+  }
+
+  const endScreenDemo = true;
+    if (endScreenDemo){
+      setTimeout(() => {
+        let fakeProgressHistory = [];
+        let progress = 0;
+        while(progress < 1000) {
+          progress += Math.floor(Math.random()*10);
+          fakeProgressHistory.push(progress);
+        }
+        setProgressHistory(fakeProgressHistory);
+        setWordlist([]);
+    }, 1000);
   }
 
   return (
