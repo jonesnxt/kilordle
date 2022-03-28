@@ -22,7 +22,6 @@ const Content = styled.div`
 function App() {
   const totalWords = 1000;
   const [wordlist, setWordlist] = useState(generateWordlist(totalWords));
-  console.log("Wordlist:", wordlist);
   const [guesslist, setGuesslist] = useState<string[]>([]);
   const [progressHistory, setProgressHistory] = useState<number[]>([]);
   const [working, setWorking] = useState('');
@@ -69,19 +68,19 @@ function App() {
     return letters;
   }
 
-  const endScreenDemo = true;
-    if (endScreenDemo){
-      setTimeout(() => {
-        let fakeProgressHistory = [];
-        let progress = 0;
-        while(progress < 1000) {
-          progress += Math.floor(Math.random()*10);
-          fakeProgressHistory.push(progress);
-        }
-        setProgressHistory(fakeProgressHistory);
-        setWordlist([]);
-    }, 1000);
-  }
+  // const endScreenDemo = true;
+  // useEffect(() => {
+  //   if (endScreenDemo){
+  //     let fakeProgressHistory = [];
+  //     let progress = 0;
+  //     while(progress < 1000) {
+  //       progress += Math.floor(Math.random()*10);
+  //       fakeProgressHistory.push(progress);
+  //     }
+  //     setProgressHistory(fakeProgressHistory);
+  //     setWordlist([]);
+  //   }
+  // }, []);
 
   return (
     <div className="App">
