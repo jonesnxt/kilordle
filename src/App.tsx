@@ -38,7 +38,7 @@ function App() {
       setWorking('');
       setWordlist(sortByValue(wordlist, newGuesslist));
       setProgressHistory(progressHistory.concat([totalWords-(wordlist.length-1)]));
-    } else if(working.length !== 5 && key.length === 1) {
+    } else if(working.length !== 5 && key.length === 1 && key !== ' ') {
       setWorking((tmp) => tmp + key.toLowerCase());
     }
   }
