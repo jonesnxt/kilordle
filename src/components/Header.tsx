@@ -10,6 +10,7 @@ const Container = styled.div`
 
 const Title = styled.div`
   font-size: 18px;
+  margin-right: 20px;
 `;
 
 const Stats = styled.div`

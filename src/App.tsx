@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import './App.css';
-import { Header, Keyboard, Puzzles } from './components';
+import { Header, Keyboard, Puzzles, EndScreen } from './components';
 import { checkValidity } from './util/checkValidity';
 import { generateWordlist } from './util/generateWordlist';
 import { sortByValue } from './util/sortByValue';
@@ -20,8 +20,10 @@ const Content = styled.div`
 `;
 
 function App() {
-  const [wordlist, setWordlist] = useState(generateWordlist());
+  const totalWords = 1000;
+  const [wordlist, setWordlist] = useState(generateWordlist(totalWords));
   const [guesslist, setGuesslist] = useState<string[]>([]);
+  const [progressHistory, setProgressHistory] = useState<number[]>([]);
   const [working, setWorking] = useState('');
 
   const maxGuesses = 1005;
@@ -35,6 +37,7 @@ function App() {
       setGuesslist(newGuesslist);
       setWorking('');
       setWordlist(sortByValue(wordlist, newGuesslist));
+      setProgressHistory(progressHistory.concat([totalWords-(wordlist.length-1)]));
     } else if(working.length !== 5 && key.length === 1 && key !== ' ') {
       setWorking((tmp) => tmp + key.toLowerCase());
     }
@@ -65,12 +68,28 @@ function App() {
     return letters;
   }
 
+  // const endScreenDemo = true;
+  // useEffect(() => {
+  //   if (endScreenDemo){
+  //     let fakeProgressHistory = [];
+  //     let progress = 0;
+  //     while(progress < 1000) {
+  //       progress += Math.floor(Math.random()*10);
+  //       fakeProgressHistory.push(progress);
+  //     }
+  //     setProgressHistory(fakeProgressHistory);
+  //     setWordlist([]);
+  //     setGuesslist(Array(fakeProgressHistory.length).fill("placeholder"));
+  //   }
+  // }, []);
+
   return (
     <div className="App">
       <Container>
         <Content>
           <Header remaining={wordlist.length} guesses={guesslist.length} limit={maxGuesses} />
           <Puzzles expired={expired} wordlist={wordlist} working={working} guesslist={guesslist} />
+          {wordlist.length === 0 ? <EndScreen progressHistory={progressHistory} /> : null}
           <Keyboard expired={expired} onKeyPress={(key) => addKey(key)} usedLetters={getUsedLetters()}/>
         </Content>
       </Container>
