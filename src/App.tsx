@@ -9,13 +9,13 @@ import { sortByValue } from './util/sortByValue';
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  background-color: #F7F8F9;
+  background-color: #f7f8f9;
 `;
 
 const Content = styled.div`
   max-width: 600px;
-  box-shadow: 4px 4px 40px 4px rgba(0,0,0,0.2);
-  background-color: #FFF;
+  box-shadow: 4px 4px 40px 4px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
   margin-bottom: 200px;
 `;
 
@@ -30,15 +30,22 @@ function App() {
   const expired = guesslist.length >= maxGuesses;
 
   function addKey(key: string) {
-    if(key === '-' || key === 'Backspace') setWorking((tmp) => tmp.slice(0, tmp.length-1));
-    else if((key === '+' || key === 'Enter') && working.length === 5 && checkValidity(working)) {
+    if (key === '-' || key === 'Backspace')
+      setWorking((tmp) => tmp.slice(0, tmp.length - 1));
+    else if (
+      (key === '+' || key === 'Enter') &&
+      working.length === 5 &&
+      checkValidity(working)
+    ) {
       // lets go.
       const newGuesslist = guesslist.concat([working]);
       setGuesslist(newGuesslist);
       setWorking('');
       setWordlist(sortByValue(wordlist, newGuesslist));
-      setProgressHistory(progressHistory.concat([totalWords-(wordlist.length-1)]));
-    } else if(working.length !== 5 && key.length === 1 && key !== ' ') {
+      setProgressHistory(
+        progressHistory.concat([totalWords - (wordlist.length - 1)])
+      );
+    } else if (working.length !== 5 && key.length === 1 && key !== ' ') {
       setWorking((tmp) => tmp + key.toLowerCase());
     }
   }
@@ -48,21 +55,22 @@ function App() {
   }, []);
 
   useEffect(() => {
-    function keyEvent(ev: KeyboardEvent) { addKey(ev.key); }
-    if(!expired) {
+    function keyEvent(ev: KeyboardEvent) {
+      addKey(ev.key);
+    }
+    if (!expired) {
       window.addEventListener('keydown', keyEvent);
-      if(working.length > 5) setWorking((tmp) => tmp.slice(0,5));
+      if (working.length > 5) setWorking((tmp) => tmp.slice(0, 5));
       return () => window.removeEventListener('keydown', keyEvent);
     }
   }, [working]);
 
   function getUsedLetters() {
     var letters: string[] = [];
-    guesslist.forEach(word => {
-      for(var i=0; i<word.length; i++) {
+    guesslist.forEach((word) => {
+      for (var i = 0; i < word.length; i++) {
         var char = word.charAt(i);
-        if(letters.indexOf(char) === -1)
-          letters.push(char);
+        if (letters.indexOf(char) === -1) letters.push(char);
       }
     });
     return letters;
@@ -70,16 +78,16 @@ function App() {
 
   // const endScreenDemo = true;
   // useEffect(() => {
-  //   if (endScreenDemo){
+  //   if (endScreenDemo) {
   //     let fakeProgressHistory = [];
   //     let progress = 0;
-  //     while(progress < 1000) {
-  //       progress += Math.floor(Math.random()*10);
+  //     while (progress < 1000) {
+  //       progress += Math.floor(Math.random() * 10);
   //       fakeProgressHistory.push(progress);
   //     }
   //     setProgressHistory(fakeProgressHistory);
   //     setWordlist([]);
-  //     setGuesslist(Array(fakeProgressHistory.length).fill("placeholder"));
+  //     setGuesslist(Array(fakeProgressHistory.length).fill('placeholder'));
   //   }
   // }, []);
 
@@ -87,10 +95,25 @@ function App() {
     <div className="App">
       <Container>
         <Content>
-          <Header remaining={wordlist.length} guesses={guesslist.length} limit={maxGuesses} />
-          <Puzzles expired={expired} wordlist={wordlist} working={working} guesslist={guesslist} />
-          {wordlist.length === 0 ? <EndScreen progressHistory={progressHistory} /> : null}
-          <Keyboard expired={expired} onKeyPress={(key) => addKey(key)} usedLetters={getUsedLetters()}/>
+          <Header
+            remaining={wordlist.length}
+            guesses={guesslist.length}
+            limit={maxGuesses}
+          />
+          <Puzzles
+            expired={expired}
+            wordlist={wordlist}
+            working={working}
+            guesslist={guesslist}
+          />
+          {wordlist.length === 0 ? (
+            <EndScreen progressHistory={progressHistory} />
+          ) : null}
+          <Keyboard
+            expired={expired}
+            onKeyPress={(key) => addKey(key)}
+            usedLetters={getUsedLetters()}
+          />
         </Content>
       </Container>
     </div>
