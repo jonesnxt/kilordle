@@ -197,6 +197,10 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
   /** try to activate the system's built-in share menu; returns true on success */
   const mobileShareResults = async (png: Blob): Promise<boolean> => {
     if (!("share" in navigator)) return false;
+    // Chrome and Edge on Windows 10 support the navigator.share API but
+    // tragically, the resulting pop-up is very bad, unless you really want your
+    // results emailed. So we will keep this method mobile-focused
+    if (navigator.userAgent.includes("Windows")) return false;
     const shareable: ShareData = {
       files: [new File([png], getFileName(), { type: "image/png" })]
     };
