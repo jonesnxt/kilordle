@@ -28,7 +28,7 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
 
   const displayWidth = 525;
   const titleHeight = 20;
-  const displayHeight = 250 + titleHeight;
+  const displayHeight = 275 + titleHeight;
   const maxColumns = 50;
   const actualColumns = Math.min(maxColumns, guesses);
   const rows = 25;
@@ -39,7 +39,8 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
     nonTitleHeight: displayHeight - titleHeight,
     width: displayWidth,
     leftGutter: 30,
-    bottomGutter: 15,
+    bottomGutter: 30,
+    urlHeight: 15,
     margin: 3,
     lineWidth: 1,
     fontSize: 10,
@@ -97,7 +98,7 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
     context.fillText(
       '0',
       mmts.leftGutter - mmts.margin,
-      mmts.nonTitleHeight - mmts.margin
+      mmts.nonTitleHeight - mmts.margin - mmts.urlHeight
     );
     context.textBaseline = 'top';
     context.fillText('1000', mmts.leftGutter - mmts.margin, mmts.margin);
@@ -106,23 +107,23 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
     context.fillText(
       String(guesses),
       mmts.gridLeftEdge +
-        actualColumns * mmts.squareSide +
-        mmts.squarePadding -
-        mmts.squareSide / 2,
-      mmts.nonTitleHeight - mmts.margin
+      actualColumns * mmts.squareSide +
+      mmts.squarePadding -
+      mmts.squareSide / 2,
+      mmts.nonTitleHeight - mmts.margin - mmts.urlHeight
     );
     // draw axes
-    context.fillRect(mmts.leftGutter, 0, mmts.lineWidth, mmts.nonTitleHeight);
+    context.fillRect(mmts.leftGutter, 0, mmts.lineWidth, mmts.nonTitleHeight - mmts.urlHeight);
     context.fillRect(
       mmts.leftGutter / 2,
       mmts.nonTitleHeight - mmts.bottomGutter,
-      mmts.width - mmts.leftGutter,
+      mmts.width - mmts.leftGutter / 2,
       mmts.lineWidth
     );
     // draw url of site
     context.textBaseline = 'middle';
     context.textAlign = 'center';
-    context.font = `${mmts.fontSize * 1.25}px sans-serif`;
+    context.font = `${mmts.urlHeight}px sans-serif`;
     context.fillText(
       'https://jonesnxt.github.io/kilordle/',
       mmts.leftGutter + mmts.gridWidth / 2,
