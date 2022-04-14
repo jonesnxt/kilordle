@@ -130,7 +130,18 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
       mmts.nonTitleHeight - mmts.margin
     );
     // draw grid of squares
-    context.fillStyle = '#0fb30f';
+    const gradient = context.createRadialGradient(
+      mmts.gridLeftEdge + 3 / 4 * mmts.gridWidth,
+      mmts.gridHeight - mmts.gridHeight / 4,
+      mmts.gridHeight / 6,
+      mmts.gridLeftEdge + 3 / 4 * mmts.gridWidth,
+      mmts.gridHeight - mmts.gridHeight / 4,
+      mmts.gridHeight
+    );
+    gradient.addColorStop(0, "#22b512");
+    gradient.addColorStop(0.4, "#2bb31d");
+    gradient.addColorStop(1, "#218c16");
+    context.fillStyle = gradient;
     const drawnSquareSide = mmts.squareSide - mmts.squarePadding * 2;
     const finalHeight = progressHistory[progressHistory.length - 1];
     for (let x = 0; x < actualColumns; x++) {
