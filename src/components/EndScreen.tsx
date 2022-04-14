@@ -164,27 +164,60 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
       }
     });
   }, [progressHistory]);
+
   const [buttonText, setButtonText] = useState('Share Results');
-  const shareResults = () => {
-    if (canvasResult.current) {
+
+  const getFileName = () => {
+    const now = new Date();
+    return `kilordle-${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}.png`
+  }
+
+  /** download results to share them the old-fashioned way */
+  const downloadResults = () => {
+    const dl = document.createElement("a");
+    dl.download = getFileName();
+    dl.href = canvasURL;
+    dl.click();
+  }
+
+  /** try to copy results to clipboard; returns true on success */
+  const copyResults = async (png: Blob): Promise<boolean> => {
       try {
-        navigator.clipboard
+      await navigator.clipboard
           .write([
             new ClipboardItem({
-              [canvasResult.current.type]: canvasResult.current,
+            [png.type]: png,
             }),
           ])
-          .then(() => {
+    } catch {
+      return false;
+    }
             setButtonText('Copied to clipboard');
-          });
+    return true;
+  }
+
+  /** try to activate the system's built-in share menu; returns true on success */
+  const mobileShareResults = async (png: Blob): Promise<boolean> => {
+    if (!("share" in navigator)) return false;
+    const shareable: ShareData = {
+      files: [new File([png], getFileName(), { type: "image/png" })]
+    };
+    if (!navigator.canShare(shareable)) return false;
+    try {
+      await navigator.share(shareable);
+      return true;
       } catch {
-        const dl = document.createElement('a');
-        dl.download = 'kilordle.png';
-        dl.href = canvasURL;
-        dl.click();
+      return false;
       }
     }
+
+  const shareResults = async () => {
+    if (!canvasResult.current) return;
+    if (await mobileShareResults(canvasResult.current)) return;
+    if (await copyResults(canvasResult.current)) return;
+    downloadResults();
   };
+
   return (
     <>
       <img
