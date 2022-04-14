@@ -32,6 +32,7 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
   const maxColumns = 50;
   const actualColumns = Math.min(maxColumns, guesses);
   const rows = 25;
+  const fontFamily = "Oxygen, sans-serif";
 
   const mmts = {
     // measurements
@@ -71,8 +72,6 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
     canvas.height = mmts.height;
     const context = canvas.getContext('2d');
     if (!context) return;
-    console.log('drawing to canvas');
-    console.log('progress history is', progressHistory);
     // draw background (white)
     context.fillStyle = '#ffffff';
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -83,15 +82,14 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
     context.fillStyle = '#000000';
     context.textAlign = 'center';
     context.textBaseline = 'top';
-    context.font = `${mmts.fontSize * 1.5}px sans-serif`;
+    context.font = `${mmts.fontSize * 1.5}px ${fontFamily}`;
     context.fillText(
       `I beat Kilordle in ${guesses} guesses :')`,
       mmts.width / 2,
       0
     );
     context.translate(0, mmts.fontSize * 1.5);
-    // setup fonts, colors
-    context.font = `${mmts.fontSize}px sans-serif`;
+    context.font = `${mmts.fontSize}px ${fontFamily}`;
     // draw numbers
     context.textBaseline = 'alphabetic';
     context.textAlign = 'right';
@@ -123,7 +121,7 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
     // draw url of site
     context.textBaseline = 'middle';
     context.textAlign = 'center';
-    context.font = `${mmts.urlHeight}px sans-serif`;
+    context.font = `${mmts.urlHeight}px ${fontFamily}`;
     context.fillText(
       'https://jonesnxt.github.io/kilordle/',
       mmts.leftGutter + mmts.gridWidth / 2,
@@ -182,17 +180,17 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
 
   /** try to copy results to clipboard; returns true on success */
   const copyResults = async (png: Blob): Promise<boolean> => {
-      try {
+    try {
       await navigator.clipboard
-          .write([
-            new ClipboardItem({
+        .write([
+          new ClipboardItem({
             [png.type]: png,
-            }),
-          ])
+          }),
+        ])
     } catch {
       return false;
     }
-            setButtonText('Copied to clipboard');
+    setButtonText('Copied to clipboard');
     return true;
   }
 
@@ -206,10 +204,10 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
     try {
       await navigator.share(shareable);
       return true;
-      } catch {
+    } catch {
       return false;
-      }
     }
+  }
 
   const shareResults = async () => {
     if (!canvasResult.current) return;
