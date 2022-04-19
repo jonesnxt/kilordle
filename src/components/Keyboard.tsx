@@ -41,7 +41,7 @@ const Key = styled.div<{letter: string, used: boolean}>`
 
   
   ${({ used }) => used && `
-    background-color: #EEE;  
+    background-color: #CCC;  
   `}
 `;
 
