@@ -26,10 +26,10 @@ const Letter = styled.div<{ green?: boolean, yellow?: boolean, red?: boolean }>`
   align-items: center;
   justify-content: center;
   ${({ yellow }) => yellow && `
-    background-color: #EEDE23;  
+    background-color: #FFFF00;
   `}
   ${({ green }) => green && `
-    background-color: #22EE33;  
+    background-color: #008000;
   `}
   ${({ red }) => red && `
     background-color: #DE5956;
@@ -56,7 +56,7 @@ function Puzzle({
         ))}
       </Row>
     ))}
-    {!expired && 
+    {!expired &&
       <Row>
         {working.split('').map((letter, i) => (
           <Letter red={working.length === 5 && !checkValidity(working)} key={`${letter}${i}W`}>{letter}</Letter>
