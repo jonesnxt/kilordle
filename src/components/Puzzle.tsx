@@ -29,7 +29,7 @@ const Letter = styled.div<{ green?: boolean, yellow?: boolean, red?: boolean }>`
     background-color: #FFFF00;
   `}
   ${({ green }) => green && `
-    background-color: #008000;
+    background-color: #00C800;
   `}
   ${({ red }) => red && `
     background-color: #DE5956;
