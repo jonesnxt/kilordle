@@ -32,7 +32,7 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
   const maxColumns = 50;
   const actualColumns = Math.min(maxColumns, guesses);
   const rows = 25;
-  const fontFamily = "Oxygen, sans-serif";
+  const fontFamily = 'sans-serif';
 
   const mmts = {
     // measurements
@@ -105,13 +105,18 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
     context.fillText(
       String(guesses),
       mmts.gridLeftEdge +
-      actualColumns * mmts.squareSide +
-      mmts.squarePadding -
-      mmts.squareSide / 2,
+        actualColumns * mmts.squareSide +
+        mmts.squarePadding -
+        mmts.squareSide / 2,
       mmts.nonTitleHeight - mmts.margin - mmts.urlHeight
     );
     // draw axes
-    context.fillRect(mmts.leftGutter, 0, mmts.lineWidth, mmts.nonTitleHeight - mmts.urlHeight);
+    context.fillRect(
+      mmts.leftGutter,
+      0,
+      mmts.lineWidth,
+      mmts.nonTitleHeight - mmts.urlHeight
+    );
     context.fillRect(
       mmts.leftGutter / 2,
       mmts.nonTitleHeight - mmts.bottomGutter,
@@ -129,16 +134,16 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
     );
     // draw grid of squares
     const gradient = context.createRadialGradient(
-      mmts.gridLeftEdge + 3 / 4 * mmts.gridWidth,
+      mmts.gridLeftEdge + (3 / 4) * mmts.gridWidth,
       mmts.gridHeight - mmts.gridHeight / 4,
       mmts.gridHeight / 6,
-      mmts.gridLeftEdge + 3 / 4 * mmts.gridWidth,
+      mmts.gridLeftEdge + (3 / 4) * mmts.gridWidth,
       mmts.gridHeight - mmts.gridHeight / 4,
       mmts.gridHeight
     );
-    gradient.addColorStop(0, "#22b512");
-    gradient.addColorStop(0.4, "#2bb31d");
-    gradient.addColorStop(1, "#218c16");
+    gradient.addColorStop(0, '#22b512');
+    gradient.addColorStop(0.4, '#2bb31d');
+    gradient.addColorStop(1, '#218c16');
     context.fillStyle = gradient;
     const drawnSquareSide = mmts.squareSide - mmts.squarePadding * 2;
     const finalHeight = progressHistory[progressHistory.length - 1];
@@ -167,42 +172,43 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
 
   const getFileName = () => {
     const now = new Date();
-    return `kilordle-${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}.png`
-  }
+    return `kilordle-${now.getFullYear()}-${
+      now.getMonth() + 1
+    }-${now.getDate()}.png`;
+  };
 
   /** download results to share them the old-fashioned way */
   const downloadResults = () => {
-    const dl = document.createElement("a");
+    const dl = document.createElement('a');
     dl.download = getFileName();
     dl.href = canvasURL;
     dl.click();
-  }
+  };
 
   /** try to copy results to clipboard; returns true on success */
   const copyResults = async (png: Blob): Promise<boolean> => {
     try {
-      await navigator.clipboard
-        .write([
-          new ClipboardItem({
-            [png.type]: png,
-          }),
-        ])
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          [png.type]: png,
+        }),
+      ]);
     } catch {
       return false;
     }
     setButtonText('Copied to clipboard');
     return true;
-  }
+  };
 
   /** try to activate the system's built-in share menu; returns true on success */
   const mobileShareResults = async (png: Blob): Promise<boolean> => {
-    if (!("share" in navigator)) return false;
+    if (!('share' in navigator)) return false;
     // Chrome and Edge on Windows 10 support the navigator.share API but
     // tragically, the resulting pop-up is very bad, unless you really want your
     // results emailed. So we will keep this method mobile-focused
-    if (navigator.userAgent.includes("Windows")) return false;
+    if (navigator.userAgent.includes('Windows')) return false;
     const shareable: ShareData = {
-      files: [new File([png], getFileName(), { type: "image/png" })]
+      files: [new File([png], getFileName(), { type: 'image/png' })],
     };
     if (!navigator.canShare(shareable)) return false;
     try {
@@ -211,7 +217,7 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
     } catch {
       return false;
     }
-  }
+  };
 
   const shareResults = async () => {
     if (!canvasResult.current) return;

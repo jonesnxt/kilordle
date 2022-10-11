@@ -91,20 +91,6 @@ function App() {
   //   }
   // }, []);
 
-  useEffect(() => {
-    if (!window.FontFace) return;
-    // ugly, but the only way i could find to initialize the font in preparation
-    // for it being used in the end screen canvas drawing except for actually
-    // using it on the page
-    const font = new FontFace(
-      'Oxygen',
-      'url(https://fonts.gstatic.com/s/oxygen/v14/2sDcZG1Wl4LcnbuCJW8zaGW5.woff2)'
-    );
-    font.load().then(() => {
-      document.fonts.add(font);
-    });
-  }, []);
-
   return (
     <div className="App">
       <Container>
