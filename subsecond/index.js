@@ -1,6 +1,7 @@
 import S from 'subsecond';
 import { readFiles } from 'node-dir';
 import { diffLines } from 'diff';
+import { writeFileSync } from 'fs';
 
 const TARGET_DIR = '../src';
 
@@ -38,6 +39,11 @@ function runSubsecond(files) {
       .sort();
 
     attributes.each((attribute, i) => attribute.text(sortedAttributes[i]));
+  });
+
+  // its that easy...
+  Object.entries(S.print()).forEach(([name, content]) => {
+    writeFileSync(name, content, 'utf8');
   });
 
   Object.entries(S.print()).forEach(([name, content]) => {

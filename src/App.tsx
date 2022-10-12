@@ -96,15 +96,15 @@ function App() {
       <Container>
         <Content>
           <Header
-            remaining={wordlist.length}
             guesses={guesslist.length}
             limit={maxGuesses}
+            remaining={wordlist.length}
           />
           <Puzzles
             expired={expired}
+            guesslist={guesslist}
             wordlist={wordlist}
             working={working}
-            guesslist={guesslist}
           />
           {wordlist.length === 0 ? (
             <EndScreen progressHistory={progressHistory} />

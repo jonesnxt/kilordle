@@ -67,10 +67,10 @@ function Keyboard({
             <Row key={row}>
               {row.split('').map((letter) => (
                 <Key
-                  used={usedLetters.indexOf(letter) !== -1}
                   key={letter}
                   letter={letter}
                   onClick={() => onKeyPress(letter)}
+                  used={usedLetters.indexOf(letter) !== -1}
                 >
                   {letter === '+' ? 'GO' : letter === '-' ? '⌫' : letter}
                 </Key>

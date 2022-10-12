@@ -29,10 +29,10 @@ function Puzzles({
       {wordlist.slice(0, Math.min(wordlist.length, 32)).map((word) => (
         <Puzzle
           expired={expired}
+          guesslist={guesslist}
           key={word}
           wordle={word}
           working={working}
-          guesslist={guesslist}
         />
       ))}
       {wordlist.length > 0 ? <More>+ {notShown} more</More> : null}

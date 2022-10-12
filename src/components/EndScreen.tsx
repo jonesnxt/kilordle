@@ -229,8 +229,8 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
   return (
     <>
       <img
-        src={canvasURL}
         alt="Congratulations, you have beaten Kilordle!"
+        src={canvasURL}
         style={{ width: displayWidth, maxWidth: '95%', height: 'auto' }}
       />
       <ShareButton onClick={shareResults}>{buttonText}</ShareButton>

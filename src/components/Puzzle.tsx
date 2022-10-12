@@ -48,8 +48,8 @@ function Puzzle({
         <Row key={guess}>
           {guess.split('').map((letter, i) => (
             <Letter
-              key={`${letter}${i},${gnum}`}
               green={letter === wordle[i]}
+              key={`${letter}${i},${gnum}`}
               yellow={isYellow(wordle, guess, i)}
             >
               {letter}
@@ -61,8 +61,8 @@ function Puzzle({
         <Row>
           {working.split('').map((letter, i) => (
             <Letter
-              red={working.length === 5 && !checkValidity(working)}
               key={`${letter}${i}W`}
+              red={working.length === 5 && !checkValidity(working)}
             >
               {letter}
             </Letter>
