@@ -14,7 +14,7 @@ const Container = styled.div`
 const Content = styled.div`
   width: 100%;
   max-width: 600px;
-  background-color: #FFF;
+  background-color: #fff;
   padding: 12px;
 `;
 
@@ -24,53 +24,62 @@ const Row = styled.div`
   justify-content: center;
 `;
 
-const Key = styled.div<{letter: string, used: boolean}>`
-  width: ${({ letter }) => (letter === '+') ? '55px' : '40px'};
+const Key = styled.div<{ letter: string; used: boolean }>`
+  width: ${({ letter }) => (letter === '+' ? '55px' : '40px')};
   height: 40px;
   font-size: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid rgba(0,0,0,0.3);
+  border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   cursor: pointer;
   user-select: none;
   :hover {
-    background-color: #EEE;
+    background-color: #eee;
   }
 
-  
-  ${({ used }) => used && `
-    background-color: #CCC;  
-  `}
+  ${({ used }) => used && 'background-color: #CCC;'}
 `;
 
-const rows = ['qwertyuiop','asdfghjkl','+zxcvbnm-'];
+const rows = ['qwertyuiop', 'asdfghjkl', '+zxcvbnm-'];
 
-function Keyboard({ expired, usedLetters, onKeyPress }: { expired: boolean, usedLetters: string[], onKeyPress: (key: string) => void }) {
-  if(expired) {
-      return (
-        <Container>
-          <Content>
-            No more guesses. Why have you done this to yourself?
-          </Content>
-        </Container>
-      );
+function Keyboard({
+  expired,
+  usedLetters,
+  onKeyPress,
+}: {
+  expired: boolean;
+  usedLetters: string[];
+  onKeyPress: (key: string) => void;
+}) {
+  if (expired) {
+    return (
+      <Container>
+        <Content>No more guesses. Why have you done this to yourself?</Content>
+      </Container>
+    );
   } else {
-      return (
-        <Container>
-          <Content>
-            {rows.map((row) => (
-              <Row key={row}>
-                {row.split('').map((letter) => (
-                  <Key used={usedLetters.indexOf(letter)!==-1} key={letter} letter={letter} onClick={() => onKeyPress(letter)}>{letter === '+' ? 'GO' : letter === '-' ? '⌫' : letter}</Key>
-                ))}
-
-              </Row>
-            ))}
-          </Content>
-        </Container>
-      );
+    return (
+      <Container>
+        <Content>
+          {rows.map((row) => (
+            <Row key={row}>
+              {row.split('').map((letter) => (
+                <Key
+                  used={usedLetters.indexOf(letter) !== -1}
+                  key={letter}
+                  letter={letter}
+                  onClick={() => onKeyPress(letter)}
+                >
+                  {letter === '+' ? 'GO' : letter === '-' ? '⌫' : letter}
+                </Key>
+              ))}
+            </Row>
+          ))}
+        </Content>
+      </Container>
+    );
   }
 }
 
