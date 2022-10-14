@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import Puzzle from './Puzzle';
 
 const Container = styled.div`

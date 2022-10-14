@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { checkValidity } from '../util/checkValidity';
 import { isYellow } from '../util/isYellow';
 

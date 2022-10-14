@@ -2,6 +2,8 @@ import S from 'subsecond';
 import { readFiles } from 'node-dir';
 import { diffLines } from 'diff';
 import { writeFileSync } from 'fs';
+import { format as prettierFormat } from 'prettier';
+import prettierTypescript from 'prettier/parser-typescript.js';
 
 const TARGET_DIR = '../src';
 
@@ -31,23 +33,26 @@ function runSubsecond(files) {
   const filesCopy = JSON.parse(JSON.stringify(files));
   S.load(files);
 
-  S('JSXOpeningElement').each((openingTag) => {
-    const attributes = openingTag.children('JSXAttribute');
-
-    const sortedAttributes = attributes
-      .map((attribute) => attribute.text())
-      .sort();
-
-    attributes.each((attribute, i) => attribute.text(sortedAttributes[i]));
-  });
-
-  // its that easy...
-  Object.entries(S.print()).forEach(([name, content]) => {
-    writeFileSync(name, content, 'utf8');
-  });
+  S('TaggedTemplateExpression')
+    .filter((taggedTemplate) =>
+      taggedTemplate.children('MemberExpression').text().includes('styled')
+    )
+    .each((taggedTemplate) => {
+      console.log(taggedTemplate.children('TemplateLiteral').text());
+    });
 
   Object.entries(S.print()).forEach(([name, content]) => {
-    diffLines(filesCopy[name], content)
+    const formatted = prettierFormat(content, {
+      parser: 'typescript',
+      plugins: [prettierTypescript],
+      printWidth: 80,
+      singleQuote: true,
+      trailingComma: 'es5',
+      tabWidth: 2,
+      useTabs: false,
+    });
+
+    diffLines(filesCopy[name], formatted)
       .filter((line) => line.added || line.removed)
       .forEach((line) =>
         console.log(
@@ -55,5 +60,7 @@ function runSubsecond(files) {
           line.value.slice(0, line.value.length - 1)
         )
       );
+
+    // writeFileSync(name, formatted, 'utf8');
   });
 }

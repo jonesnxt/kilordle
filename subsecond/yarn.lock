@@ -218,6 +218,11 @@ picomatch@^2.3.1:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
+prettier@^2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.7.1.tgz#e235806850d057f97bb08368a4f7d899f7760c64"
+  integrity sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==
+
 queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
@@ -247,10 +252,10 @@ slash@^3.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
 
-subsecond@^0.1.12:
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/subsecond/-/subsecond-0.1.12.tgz#8cf5d6fdf908224c0c4824f8bfa4dadc090e1195"
-  integrity sha512-yBEQ7M6sGYmUSTrkz1h33tCd4ivLBft0d3iMBqY7BSAMKdD1ZUHxXCg2s4orOjog+PGl/6/HGLbSYpgZfLy7og==
+subsecond@^0.1.13:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/subsecond/-/subsecond-0.1.13.tgz#d11dc8235aaa1ba2d66dab2b3d2e7f4019421972"
+  integrity sha512-epKVe2n9BlOHay5pDff4dx2zDguGSAH7NF49UrYZReN4etXK+CTCc+Xo+Y82Mv7aAOxAEmEFNJ0FCEeiNFEqkw==
   dependencies:
     "@typescript-eslint/typescript-estree" "^5.38.0"
 

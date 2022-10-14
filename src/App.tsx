@@ -1,6 +1,8 @@
+import './App.css';
+
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import './App.css';
+
 import { Header, Keyboard, Puzzles, EndScreen } from './components';
 import { checkValidity } from './util/checkValidity';
 import { generateWordlist } from './util/generateWordlist';

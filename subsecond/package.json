@@ -12,6 +12,7 @@
   "dependencies": {
     "diff": "^5.1.0",
     "node-dir": "^0.1.17",
-    "subsecond": "^0.1.12"
+    "prettier": "^2.7.1",
+    "subsecond": "^0.1.13"
   }
 }
