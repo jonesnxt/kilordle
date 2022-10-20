@@ -1,8 +1,7 @@
 {
-  "name": "subsecond",
+  "name": "prettier-plugin-internal",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,9 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "diff": "^5.1.0",
-    "node-dir": "^0.1.17",
     "prettier": "^2.7.1",
-    "subsecond": "^0.1.14"
+    "subsecond": "^0.1.15"
   }
 }

@@ -252,10 +252,10 @@ slash@^3.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
 
-subsecond@^0.1.13:
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/subsecond/-/subsecond-0.1.13.tgz#d11dc8235aaa1ba2d66dab2b3d2e7f4019421972"
-  integrity sha512-epKVe2n9BlOHay5pDff4dx2zDguGSAH7NF49UrYZReN4etXK+CTCc+Xo+Y82Mv7aAOxAEmEFNJ0FCEeiNFEqkw==
+subsecond@^0.1.14:
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/subsecond/-/subsecond-0.1.14.tgz#991f49ceb75d591c517635bfa2423452386faa06"
+  integrity sha512-EUhcwqWAGSt/5wQsM+fa0pbS+ETSFw8HaCuMFaHD80M2OzTpsOWeVuM7wtytlsrc48GXFeWRjSKFsRtoHFw3IQ==
   dependencies:
     "@typescript-eslint/typescript-estree" "^5.38.0"
 

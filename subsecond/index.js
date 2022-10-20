@@ -1,9 +1,9 @@
-import S from 'subsecond';
-import { readFiles } from 'node-dir';
 import { diffLines } from 'diff';
 import { writeFileSync } from 'fs';
+import { readFiles } from 'node-dir';
 import { format as prettierFormat } from 'prettier';
 import prettierTypescript from 'prettier/parser-typescript.js';
+import S from 'subsecond';
 
 const TARGET_DIR = '../src';
 
@@ -12,7 +12,7 @@ const contents = [];
 readFiles(
   TARGET_DIR,
   {
-    match: /.(j|t)sx?$/,
+    match: /\.[jt]sx?$/,
     exclude: /^\./,
   },
   function (err, content, next) {
@@ -33,15 +33,16 @@ function runSubsecond(files) {
   const filesCopy = JSON.parse(JSON.stringify(files));
   S.load(files);
 
-  S('TaggedTemplateExpression')
-    .filter((taggedTemplate) =>
-      taggedTemplate.children('MemberExpression').text().includes('styled')
-    )
-    .each((taggedTemplate) => {
-      console.log(taggedTemplate.children('TemplateLiteral').text());
-    });
+  S('MemberExpression').each((expression) => {
+    const [key, value] = expression.children().map((child) => child.text());
+    const keyLength = `${key}.length`;
+    if (!value.startsWith(keyLength)) return;
+
+    expression.text(`${key}.at(${value.slice(keyLength.length)})`);
+  });
 
   Object.entries(S.print()).forEach(([name, content]) => {
+    // (optional), if you want nice formatting
     const formatted = prettierFormat(content, {
       parser: 'typescript',
       plugins: [prettierTypescript],
@@ -61,6 +62,7 @@ function runSubsecond(files) {
         )
       );
 
+    // Uncomment the following line when you are ready to write the changes
     // writeFileSync(name, formatted, 'utf8');
   });
 }
