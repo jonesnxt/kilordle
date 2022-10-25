@@ -34,11 +34,11 @@ function runSubsecond(files) {
   S.load(files);
 
   S('MemberExpression').each((expression) => {
-    const [key, value] = expression.children().map((child) => child.text());
-    const keyLength = `${key}.length`;
-    if (!value.startsWith(keyLength)) return;
+    const [name, index] = expression.children().map((child) => child.text());
+    const nameDotLength = `${name}.length`;
+    if (!index.startsWith(nameDotLength)) return;
 
-    expression.text(`${key}.at(${value.slice(keyLength.length)})`);
+    expression.text(`${name}.at(${index.slice(nameDotLength.length)})`);
   });
 
   Object.entries(S.print()).forEach(([name, content]) => {
@@ -63,6 +63,6 @@ function runSubsecond(files) {
       );
 
     // Uncomment the following line when you are ready to write the changes
-    // writeFileSync(name, formatted, 'utf8');
+    writeFileSync(name, formatted, 'utf8');
   });
 }

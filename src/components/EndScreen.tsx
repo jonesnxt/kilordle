@@ -146,7 +146,7 @@ function EndScreen({ progressHistory }: { progressHistory: number[] }) {
     gradient.addColorStop(1, '#218c16');
     context.fillStyle = gradient;
     const drawnSquareSide = mmts.squareSide - mmts.squarePadding * 2;
-    const finalHeight = progressHistory[progressHistory.length - 1];
+    const finalHeight = progressHistory.at(-1) ?? 0;
     for (let x = 0; x < actualColumns; x++) {
       const wordsGotten =
         progressHistory[Math.floor(guesses * (x / actualColumns))];

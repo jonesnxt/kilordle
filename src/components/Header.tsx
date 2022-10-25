@@ -33,6 +33,13 @@ function Header({
         <a href="https://github.com/jonesnxt/kilordle" target="_blank">
           jones
         </a>
+        <a
+          href="https://www.buymeacoffee.com/jonesnxt"
+          style={{ paddingLeft: '8px', fontStyle: 'italic', fontSize: '12px' }}
+          target="_black"
+        >
+          Buy me a coffee?
+        </a>
       </Title>
       <Stats>
         Guesses: {guesses}/{limit} | Remaining: {remaining}/1000
