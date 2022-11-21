@@ -23,13 +23,13 @@ readFiles(
   function (err, files) {
     if (err) throw err;
 
-    runSubsecond(
+    runSubsecondScript(
       Object.fromEntries(contents.map((content, i) => [files[i], content]))
     );
   }
 );
 
-function runSubsecond(files) {
+function runSubsecondScript(files) {
   const filesCopy = JSON.parse(JSON.stringify(files));
   S.load(files);
 
