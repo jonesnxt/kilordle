@@ -43,7 +43,7 @@ function runSubsecond(files) {
 
   Object.entries(S.print()).forEach(([name, content]) => {
     // (optional), if you want nice formatting
-    const formatted = prettierFormat(content, {
+    const prettierFormatted = prettierFormat(content, {
       parser: 'typescript',
       plugins: [prettierTypescript],
       printWidth: 80,
@@ -53,7 +53,7 @@ function runSubsecond(files) {
       useTabs: false,
     });
 
-    diffLines(filesCopy[name], formatted)
+    diffLines(filesCopy[name], prettierFormatted)
       .filter((line) => line.added || line.removed)
       .forEach((line) =>
         console.log(
@@ -63,6 +63,6 @@ function runSubsecond(files) {
       );
 
     // Uncomment the following line when you are ready to write the changes
-    writeFileSync(name, formatted, 'utf8');
+    writeFileSync(name, prettierFormatted, 'utf8');
   });
 }
